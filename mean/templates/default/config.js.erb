@@ -1,0 +1,14 @@
+module.exports = {
+
+	// the database url to connect
+	dbUris : '<%= node['opsworks']['layers']['mongodb']['instances'].values.map{|instance| "mongodb://#{instance['private_ip']}:27017" }.join(",") %>/mean-todo',
+	
+	// the database connection options
+	dbOptions : {
+		server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+		replset: { rs_name: '<%= @replSet %>' , socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+		user: '<%= @dbUser %>',
+  		pass: '<%= @dbPassword %>',
+  		auth: { authdb: 'admin' }
+	}
+}
